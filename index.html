@@ -1,0 +1,30 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./components/app/app.css">
+    <link rel="stylesheet" href="/components/list/list.css">
+    <title>API Works</title>
+</head>
+<body>
+    <div class="js-app">
+        <div class="form-wrapper">
+            <form class="form js-form">
+                <input type="text" placeholder="city" class="form-text-input js-form-text-input">
+                <input type="submit" value="submit" class="form-submit js-form-submit">
+            </form>
+        </div>
+        <div class="list js-list">
+
+        </div>
+    </div>
+
+    <script src="/components/app/app.js" type="module"></script>
+    <script src="/components/apiWorker/apiWorker.js" type="module"></script>
+    <script type="module">
+        import {App} from '/components/app/app.js';
+        import {ApiWorker} from '/components/apiWorker/apiWorker.js';
+        window.app = new App(document.querySelector('.js-app'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+ul {
+    padding: 0;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    border: 1px solid green;
+    padding: 5px;
+    min-height: 25px;
+    height: auto;
+    margin: 5px 0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.title,
+div.summary {
+    float: left;
+}
+
+.wrap {
+    width: 100%;
+}
+
+div.price {
+    float: right;
+}
+
+.button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: aqua;
+}
