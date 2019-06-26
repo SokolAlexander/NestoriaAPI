@@ -15,10 +15,18 @@ export class App {
         this.el.addEventListener('formSubmit', e => {
             this.apiWorker.getListings(e.detail);
         });
+        this.el.addEventListener('requestData', (e) => {
+            this.apiWorker.getNextPage(e.detail.page);
+        });
     }
 
     takeData(data) {
         console.log(data.response);
-        this.list.setData(data.response);
+        if (data.response.page === 1) {
+            this.list.setData(data.response)
+            } else {
+                this.list.addData(data.response)
+            }
+
     }
 }

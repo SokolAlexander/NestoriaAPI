@@ -1,7 +1,7 @@
 export class List {
     constructor(htmlEl) {
         this.el = htmlEl;
-        this.maxCount = 3;
+        this.maxCount = 20;
         this.currentCount = 0;
         this.data = [{
             title: '1_______________________________________1',
@@ -61,6 +61,7 @@ export class List {
 
     _render() {
         this.el.innerHTML = '';
+        this.currentCount = 0;
         this.ul = document.createElement('ul');
         this._appendLis();
         this.el.appendChild(this.ul);
@@ -106,16 +107,29 @@ export class List {
     }
 
     _showMore() {
-        this._appendLis();
+        let request = new CustomEvent('requestData', 
+            {bubbles: true, detail: {page: ++this.currentPage}});
+        this.el.dispatchEvent(request);
     }
 
     _initEvents() {
-        let button = this.el.querySelector('a');
-        button.addEventListener('click', () => this._showMore())
+        this.el.addEventListener('click', (e) => {
+            if (e.target.classList.contains('button')) {
+                this._showMore();
+            }
+        })
+    }
+
+    addData(response) {
+        console.log(this.data[0]);
+        this.data = this.data.concat(response.listings);
+        console.log(this.data[0]);
+        this._appendLis();
     }
 
     setData(response) {
         this.data = response.listings;
+        this.currentPage = response.page;
         this._render();
     }
 }

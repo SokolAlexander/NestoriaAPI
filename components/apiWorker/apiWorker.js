@@ -40,9 +40,13 @@ export class ApiWorker {
         console.error('error with ' + url);
     }
 
-    getListings(cityName) {
-        let url = this.url + 'place_name=' + cityName;
-
+    getNextPage(page) {
+        let url = this.currentUrl + '&page=' + page;
         this.makeRequestScript(url, this.returnData, this.onError);
+    }
+
+    getListings(cityName) {
+        this.currentUrl = this.url + 'place_name=' + cityName;
+        this.makeRequestScript(this.currentUrl, this.returnData, this.onError);
     }
 }
