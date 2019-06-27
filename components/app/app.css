@@ -1,13 +1,14 @@
+
+body {
+    background-color: rgba(201, 185, 185, 0.178);
+    padding: 0px;
+    margin: 0px;
+}
+
 .js-app {
     margin: auto;
     border: 1px solid black;
     width:  50%;
     background-color: white;
     min-width: 500px;
-}
-
-body {
-    background-color: rgba(201, 185, 185, 0.178);
-    padding: 0px;
-    margin: 0px;
 }

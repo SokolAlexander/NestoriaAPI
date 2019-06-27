@@ -1,7 +1,6 @@
 ul {
     padding: 0;
-    
-    /* text-align: center; */
+    list-style: none;
 }
 
 li {
@@ -25,13 +24,17 @@ li:active {
     background-color: rosybrown
 }
 
+.wrap {
+    width: 100%;
+}
+
 .thumb {
     float: left;
     width: 25%;
 }
 
-div.title,
-div.keywords {
+.title,
+.keywords {
     float: left;
     width: 55%;
 }
@@ -41,11 +44,7 @@ div.keywords {
     padding: 5px 0px;
 }
 
-.wrap {
-    width: 100%;
-}
-
-div.price {
+.price {
     float: right;
     width: 10%;
     text-align: right;
@@ -68,7 +67,11 @@ div.price {
 .warning {
     height: 50px;
     width: 100%;
-    background-color: red;
+    border: 2px solid rgb(187, 18, 18);
+    background-color: rgba(223, 117, 117, 0.445);
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
 }
 
 .warning-hidden {

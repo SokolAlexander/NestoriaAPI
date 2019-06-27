@@ -9,6 +9,7 @@ export class ApiWorker {
   constructor (app) {
     this.app = app;
     this.callbackRegistry = {};
+    this.isOk = true;
     this.url =
             'https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=rent&';
     this.currentUrl = this.url;
@@ -44,8 +45,10 @@ export class ApiWorker {
       document.head.removeChild(document.head.querySelector('script'));
       onError.call(this, url);
     };
-
-    document.head.append(script);
+    if (this.isOk) {
+      this.isOk = false;
+      document.head.append(script);
+    } else setTimeout(() => document.head.append(script), 1000);
   }
 
   /**
@@ -53,6 +56,7 @@ export class ApiWorker {
      * @param {string} callbackName
      */
   _clear (callbackName) {
+    setTimeout(() => { this.isOk = true; }, 1000);
     delete this.callbackRegistry[callbackName];
     delete window[callbackName];
   }
@@ -97,6 +101,7 @@ export class ApiWorker {
      */
   getListings (cityName) {
     let url = this.url + 'place_name=' + cityName;
+
     this.makeRequestScript(url, this._checkResponse, this.onError);
   }
 }

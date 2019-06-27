@@ -171,13 +171,7 @@ export class List {
     let img = this._addElement('img', this.data[index].img_url)(['image']);
     imgWrap.append(img);
 
-    let info = `${this.data[index].lister_name} on ${this.data[index].datasource_name}
-
-        Property: ${this.data[index].property_type}
-        Bathrooms: ${this.data[index].bathroom_number}
-        Bedrooms: ${this.data[index].bedroom_number}
-
-        ${this.data[index].summary}`;
+    let info = this._getDetailedText(this.data[index]);
     let textWrap = this._addDiv(['modal-text-wrap'], info);
 
     let linkToLister = document.createElement('a');
@@ -185,10 +179,21 @@ export class List {
     linkToLister.innerText = 'more details';
 
     modalInfo.append(titleWrap, imgWrap, textWrap);
-
     modalGuts.append(modalInfo, linkToLister);
 
-    return modalGuts;
+    return modalGuts
+  }
+
+  _getDetailedText(item) {
+    let lister_name = item.lister_name === undefined ?
+     'Unknow Lister' : item.lister_name;
+    return `${lister_name} on ${item.datasource_name}
+
+    Property: ${item.property_type}
+    Bathrooms: ${item.bathroom_number}
+    Bedrooms: ${item.bedroom_number}
+
+    ${item.summary}`;
   }
 
   /**
