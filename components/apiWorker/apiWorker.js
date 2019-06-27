@@ -4,36 +4,49 @@ export class ApiWorker {
         this.callbackRegistry = {};
         this.url = 
             'https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=rent&';
+        this.currentUrl = this.url;
     }
 
     makeRequestScript(url, _onSuccess, _onError) {
         let scriptOk = false;
 
         let callbackName = 'cb_' + (Date.now());
-        url += '&callback=app.apiWorker.callbackRegistry.' + callbackName;
+        url += '&callback=' + callbackName;
 
         this.callbackRegistry[callbackName] = (data) => {
             scriptOk = true;
-            delete this.callbackRegistry[callbackName];
+            this._clear(callbackName);
             document.head.removeChild(document.head.querySelector('script'));
-            this.returnData(data);
+            _onSuccess.call(this, data);
         }
+        window[callbackName] = this.callbackRegistry[callbackName].bind(this);
 
         let script = document.createElement('script');
         script.src = url;
 
         script.onload = script.onerror = () => {
             if (scriptOk) return;
-            delete this.callbackRegistry[callbackName];
+            this._clear(callbackName);
             document.head.removeChild(document.head.querySelector('script'));
             this.onError(url);
         }
 
-        document.head.appendChild(script);
+        document.head.append(script);
     }
 
-    returnData(data) {
-        app.takeData(data);
+    _clear(callbackName) {
+        delete this.callbackRegistry[callbackName];
+        delete window[callbackName];
+    }
+
+    _checkResponse(data) {
+        let code = data.response.application_response_code;
+        if (code[0] === '1') {
+            this.currentUrl = this.url + '&place_name=' + data.request.location;
+            this.app.takeData(data);
+            return
+        };
+        this.app.showWarning(code);
     }
 
     onError(url) {
@@ -42,11 +55,11 @@ export class ApiWorker {
 
     getNextPage(page) {
         let url = this.currentUrl + '&page=' + page;
-        this.makeRequestScript(url, this.returnData, this.onError);
+        this.makeRequestScript(url, this._checkResponse, this.onError);
     }
 
     getListings(cityName) {
-        this.currentUrl = this.url + 'place_name=' + cityName;
-        this.makeRequestScript(this.currentUrl, this.returnData, this.onError);
+        let url = this.url + 'place_name=' + cityName;
+        this.makeRequestScript(url, this._checkResponse, this.onError);
     }
 }

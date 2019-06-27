@@ -16,14 +16,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    height: 600px;
-    border: 2px solid green;
+    height: 80%;
+    border: 2px solid rgba(165, 42, 42, 0.479);
     background-color: white;
     opacity: 1;
 }
 
 .modal img {
     width: 100%;
+    height: 400px;
 }
 
 .modal-closed {
@@ -61,8 +62,6 @@
     background-color: brown;
     margin-top: 30px;
     padding: 10px 0px;
-    position: absolute;
-    bottom: 0px;
 }
 
 .modal a:hover {
@@ -70,6 +69,6 @@
     color: rgb(228, 149, 149);
 }
 
-.modal-guts {
-    overflow: auto;
+.modal {
+    overflow-y: auto;
 }

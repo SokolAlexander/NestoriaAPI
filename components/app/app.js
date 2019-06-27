@@ -21,12 +21,24 @@ export class App {
     }
 
     takeData(data) {
-        console.log(data.response);
+        console.log('response ok: ' + data.response.application_response_code);
         if (data.response.page === 1) {
             this.list.setData(data.response)
             } else {
                 this.list.addData(data.response)
             }
 
+    }
+
+    showWarning(code) {
+        let warnText = '';
+        if (code[0] === '2') {
+            warnText = 'Nothing was found. Misspelled somewhere?';
+        } else if (code[0] === '5') {
+            warnText = 'Something\'s wrong on the server-side';
+        } else {
+            warnText = 'Invalid request';
+        };
+        this.list.displayWarning(warnText);
     }
 }

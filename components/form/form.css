@@ -1,0 +1,28 @@
+.form-wrapper {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px 10px 0px;
+}
+
+.form input {
+    border: 1px solid blue;
+    height: 35px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.form input[type=submit] {
+    width: 60px;
+    background-color: rgba(174, 206, 195, 0.548);
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.form input[type=submit]:hover {
+    background-color: rgba(174, 206, 195);
+    border: 3px solid blue;
+}
+
+.form input[type=submit]:active {
+    transform: scale(0.96);
+}
