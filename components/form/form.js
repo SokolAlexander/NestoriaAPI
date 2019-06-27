@@ -1,22 +1,38 @@
+/**
+ * class represents a form for searching
+ */
 export class Form {
-    constructor(htmlEl) {
-        this.el = htmlEl;
+  /**
+     * gets form inside htmlEl
+     * @param {htmlEl} htmlEl
+     */
+  constructor (htmlEl) {
+    this.el = htmlEl;
+    this._initEvents();
+  }
 
-        this._initEvents();
-    }
+  /**
+     * adds EventListener for submitting form
+     */
+  _initEvents () {
+    this.el.addEventListener('submit', e => this._submitForm(e));
+  }
 
-    _initEvents() {
-        this.el.addEventListener('submit', e => this._submitForm(e));
-    }
+  /**
+     * dispatches custom event to submit form to app
+     * @param {Event} e
+     */
+  _submitForm (e) {
+    e.preventDefault();
+    let formData = this._getFormData();
+    let formSubmit = new CustomEvent('formSubmit', { bubbles: true, detail: formData });
+    this.el.dispatchEvent(formSubmit);
+  }
 
-    _submitForm(e) {
-        e.preventDefault();
-        let formData = this._getFormData();
-        let formSubmit = new CustomEvent('formSubmit', {bubbles: true, detail: formData});
-        this.el.dispatchEvent(formSubmit);
-    }
-
-    _getFormData() {
-        return this.el.querySelector('.form-text-input').value;
-    }
+  /**
+     * returns value of text input
+     */
+  _getFormData () {
+    return this.el.querySelector('.form-text-input').value;
+  }
 }
