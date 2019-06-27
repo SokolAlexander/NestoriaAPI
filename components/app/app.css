@@ -2,4 +2,11 @@
     margin: auto;
     border: 1px solid black;
     width:  50%;
+    background-color: white;
+}
+
+body {
+    background-color: rgba(201, 185, 185, 0.178);
+    padding: 0px;
+    margin: 0px;
 }
