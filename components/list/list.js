@@ -184,6 +184,10 @@ export class List {
     return modalGuts
   }
 
+  /**
+   * gets text for item details display
+   * @param {Object} item 
+   */
   _getDetailedText(item) {
     let lister_name = item.lister_name === undefined ?
      'Unknow Lister' : item.lister_name;
