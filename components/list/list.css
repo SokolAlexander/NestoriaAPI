@@ -50,6 +50,35 @@ li:active {
     text-align: right;
 }
 
+.add-bookmark {
+    border: 2px solid blue;
+    width: 100%;
+    padding: 10px;
+    background-color: aquamarine;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
+
+.add-bookmark:hover {
+    background-color: aqua;
+}
+
+.bookmarks {   
+    z-index: 1000;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: blueviolet;
+}
+
+.display-bookmarks {
+    display: block;
+}
+
 .button {
     display: inline-block;
     width: 100%;
@@ -64,16 +93,3 @@ li:active {
     background-color: rgb(190, 250, 250);
 }
 
-.warning {
-    height: 50px;
-    width: 100%;
-    border: 2px solid rgb(187, 18, 18);
-    background-color: rgba(223, 117, 117, 0.445);
-    box-sizing: border-box;
-    padding: 5px;
-    text-align: center;
-}
-
-.warning-hidden {
-    display: none;
-}

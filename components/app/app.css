@@ -12,3 +12,27 @@ body {
     background-color: white;
     min-width: 500px;
 }
+
+.toggle-bookmarks {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    padding: 15px;
+    border: 2px solid black;
+    z-index: 1100;
+    cursor: pointer;
+}
+
+.warning {
+    height: 50px;
+    width: 100%;
+    border: 2px solid rgb(187, 18, 18);
+    background-color: rgba(223, 117, 117, 0.445);
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+}
+
+.warning-hidden {
+    display: none;
+}

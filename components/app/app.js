@@ -1,20 +1,33 @@
 import { Form } from '../form/form.js';
-import { List } from '../list/list.js';
+import { PlacesList } from '../list/places.js';
+import { BookmarksList } from '../list/bookmarks.js';
 import { ApiWorker } from '../apiWorker/apiWorker.js';
+
+import {dataMock} from '../list/data.js';
+import { AbstractControl } from '../abstract/abstract.js';
 /**
  * class representing an app for working with Nestoria API
  */
-export class App {
+export class App extends AbstractControl {
   /**
      * create an app inside htmlEl
      * @param {htmlEl} htmlEl
      */
   constructor (htmlEl) {
+    super();
     this.el = htmlEl;
     this.form = new Form(this.el.querySelector('.form'));
-    this.list = new List(this.el.querySelector('.list'));
+    this.list = new PlacesList(this.el.querySelector('.list'));
+        let responseMock = {
+            listings: dataMock,
+            page: 1,
+            total_pages: 1
+        };
+        this.list.setData(responseMock);
+    this.bookmarks = new BookmarksList(this.el.querySelector('.bookmarks'));
     this.apiWorker = new ApiWorker(this);
 
+    this._createWarning();
     this._initEvents();
   }
 
@@ -29,6 +42,15 @@ export class App {
     this.el.addEventListener('requestData', (e) => {
       this.apiWorker.getNextPage(e.detail.page);
     });
+    this.el.addEventListener('bookmarkAdd', (e) => {
+        this.bookmarks.addData(e.detail);
+      });
+    this.el.addEventListener('click', (e) => {
+        if (e.target.classList.contains('toggle-bookmarks')) {
+        this.bookmarks.el.classList.toggle('display-bookmarks');
+        console.log(this.bookmarks.data)
+        }
+    })
   }
 
   /**
@@ -41,7 +63,7 @@ export class App {
     if (data.response.page === 1) {
       this.list.setData(data.response);
     } else {
-      this.list.addData(data.response);
+      this.list.addData(data.response.listings);
     }
   }
 
@@ -59,6 +81,23 @@ export class App {
     } else {
       warnText = 'Invalid request';
     };
-    this.list.displayWarning(warnText);
+    this.displayWarning(warnText);
   }
+
+    /**
+     * creates a warning message to show if something's wrong
+     */
+    _createWarning () {
+        this.warning = this._addDiv(['warning', 'warning-hidden']);
+        this.el.insertBefore(this.warning, this.list.el);
+      }
+  
+  /**
+     * displays warning if something was wrong with the query
+     * @param {string} text
+     */
+    displayWarning (text) {
+        this.warning.innerText = text;
+        this.warning.classList.remove('warning-hidden');
+      }
 }
