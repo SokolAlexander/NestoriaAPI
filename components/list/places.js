@@ -3,6 +3,9 @@ import {List} from './list.js';
 export class PlacesList extends List {
     constructor(htmlEl) {
         super(htmlEl);
+        
+        this.maxCount = 20;
+        this.currentCount = 0;
         this._appendButton();
     }
 

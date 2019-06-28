@@ -21,6 +21,11 @@ body {
     border: 2px solid black;
     z-index: 1100;
     cursor: pointer;
+    background-color: white;
+}
+
+.toggle-bookmarks:active {
+    transform: scale(0.98);
 }
 
 .warning {

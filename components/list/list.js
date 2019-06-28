@@ -11,8 +11,6 @@ export class List extends AbstractControl {
   constructor (htmlEl) {
     super();
     this.el = htmlEl;
-    this.maxCount = 20;
-    this.currentCount = 0;
     this.data = [];
     
     this.modal = new Modal();
@@ -25,11 +23,9 @@ export class List extends AbstractControl {
     
     this._render();
     this._initEvents();
-
   }
 
   _showMore() {
-
   }
 
   _removeBookmark(target) {
@@ -106,15 +102,6 @@ export class List extends AbstractControl {
       if (e.target.dataset.action in this.actions) {
         this.actions[e.target.dataset.action](e.target);
       } else this._checkForLi(e.target);
-      // if (e.target.classList.contains('button')) {
-      //   this._showMore();
-      // } else if (e.target.classList.contains('modal-overlay')) {
-      //   this.modal.hide();
-      // } else if (e.target.classList.contains('add-bookmark')) {
-      //     this._addToBookmarks(e.target.dataset.index)
-      // } else if (e.target.classList.contains('remove-bookmark')) {
-      //     this._removeBookmark(e.target)
-      // } else this._checkForLi(e.target);
     });
   }
 
