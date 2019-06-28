@@ -48,7 +48,6 @@ export class List extends AbstractControl {
     this.data[target.dataset.index].bookmark = !this.data[target.dataset.index].bookmark;
     let bookmarkChange = new CustomEvent('bookmarkChange',
       { bubbles: true, detail: this.data[target.dataset.index] });
-    console.log(target.dataset.index);
     this.el.dispatchEvent(bookmarkChange);
   }
 
@@ -141,7 +140,7 @@ export class List extends AbstractControl {
    * @param {htmlEl} target
    */
   _addToBookmarks (target) {
-    this._swapButton(target, 'add-bookmark', 'remove-bookmark', 'Remove');
+    this._swpButton(target, 'add-bookmark', 'remove-bookmark', 'Remove');
     this._changeBookmarks(target);
   }
 

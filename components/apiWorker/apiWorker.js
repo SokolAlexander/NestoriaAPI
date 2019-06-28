@@ -31,18 +31,18 @@ export class ApiWorker {
     this.callbackRegistry[callbackName] = (data) => {
       scriptOk = true;
       this._clear(callbackName);
-      document.head.removeChild(document.head.querySelector('script'));
+      
       onSuccess.call(this, data);
     };
     window[callbackName] = this.callbackRegistry[callbackName].bind(this);
 
     let script = document.createElement('script');
     script.src = url;
+    script.async = true;
 
     script.onload = script.onerror = () => {
       if (scriptOk) return;
       this._clear(callbackName);
-      document.head.removeChild(document.head.querySelector('script'));
       onError.call(this, url);
     };
     if (this.isOk) {
@@ -57,6 +57,8 @@ export class ApiWorker {
      */
   _clear (callbackName) {
     setTimeout(() => { this.isOk = true; }, 1000);
+    debugger
+    document.head.removeChild(document.head.querySelector('script'));
     delete this.callbackRegistry[callbackName];
     delete window[callbackName];
   }

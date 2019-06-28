@@ -37,7 +37,6 @@ export class App extends AbstractControl {
       this.apiWorker.getNextPage(e.detail.page);
     });
     this.el.addEventListener('bookmarkChange', (e) => {
-      console.log(e.detail, this.bookmarks.data);
       if (!e.detail.bookmark) {
         this.bookmarks.removeItem(e.detail);
       } else this.bookmarks.addData(e.detail);
