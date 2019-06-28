@@ -30,6 +30,7 @@ export class App extends AbstractControl {
      */
   _initEvents () {
     this.el.addEventListener('formSubmit', e => {
+      this._hideWarning();
       this.apiWorker.getListings(e.detail);
     });
     this.el.addEventListener('requestData', (e) => {
@@ -76,7 +77,7 @@ export class App extends AbstractControl {
     } else {
       warnText = 'Invalid request';
     };
-    this.displayWarning(warnText);
+    this._displayWarning(warnText);
   }
 
   /**
@@ -91,8 +92,12 @@ export class App extends AbstractControl {
      * displays warning if something was wrong with the query
      * @param {string} text
      */
-  displayWarning (text) {
+  _displayWarning (text) {
     this.warning.innerText = text;
     this.warning.classList.remove('warning-hidden');
+  }
+
+  _hideWarning() {
+    this.warning.classList.add('warning-hidden');
   }
 }
