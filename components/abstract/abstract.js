@@ -1,7 +1,13 @@
+/**
+ * class for abstract control
+ */
 export class AbstractControl {
-    constructor() {
-        this._addDiv = this._addElement('div');
-    }
+  /**
+   * create abstract control
+   */
+  constructor () {
+    this._addDiv = this._addElement('div');
+  }
 
   /**
      * adds one html element with tagName and src (used for imgs)
@@ -9,18 +15,17 @@ export class AbstractControl {
      * @param {string} src
      * @return function(Array of strings, string) => returns htmlEl
      */
+  _addElement (tagName, src = '') {
+    return function (CssClasses = [], innerText = '') {
+      let el = document.createElement(tagName);
+      el.innerText = innerText;
+      if (src) el.src = src;
 
-    _addElement (tagName, src = '') {
-        return function (CssClasses = [], innerText = '') {
-          let el = document.createElement(tagName);
-          el.innerText = innerText;
-          if (src) el.src = src;
+      CssClasses.forEach(CssClass => {
+        el.classList.add(CssClass);
+      });
 
-          CssClasses.forEach(CssClass => {
-            el.classList.add(CssClass);
-          });
-    
-          return el;
-        };
-      }
+      return el;
+    };
+  }
 }

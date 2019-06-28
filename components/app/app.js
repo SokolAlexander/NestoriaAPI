@@ -2,9 +2,8 @@ import { Form } from '../form/form.js';
 import { PlacesList } from '../list/places.js';
 import { BookmarksList } from '../list/bookmarks.js';
 import { ApiWorker } from '../apiWorker/apiWorker.js';
-
-import {dataMock} from '../list/data.js';
 import { AbstractControl } from '../abstract/abstract.js';
+
 /**
  * class representing an app for working with Nestoria API
  */
@@ -18,12 +17,6 @@ export class App extends AbstractControl {
     this.el = htmlEl;
     this.form = new Form(this.el.querySelector('.form'));
     this.list = new PlacesList(this.el.querySelector('.list'));
-        let responseMock = {
-            listings: dataMock,
-            page: 1,
-            total_pages: 1
-        };
-        this.list.setData(responseMock);
     this.bookmarks = new BookmarksList(this.el.querySelector('.bookmarks'));
     this.apiWorker = new ApiWorker(this);
 
@@ -43,16 +36,16 @@ export class App extends AbstractControl {
       this.apiWorker.getNextPage(e.detail.page);
     });
     this.el.addEventListener('bookmarkChange', (e) => {
-      console.log(e.detail, this.bookmarks.data)
-        if (!e.detail.bookmark) {
-          this.bookmarks.removeItem(e.detail)
-        } else this.bookmarks.addData(e.detail);
-      });
+      console.log(e.detail, this.bookmarks.data);
+      if (!e.detail.bookmark) {
+        this.bookmarks.removeItem(e.detail);
+      } else this.bookmarks.addData(e.detail);
+    });
     this.el.addEventListener('click', (e) => {
-        if (e.target.classList.contains('toggle-bookmarks')) {
+      if (e.target.classList.contains('toggle-bookmarks')) {
         this.bookmarks.el.classList.toggle('display-bookmarks');
-        }
-    })
+      }
+    });
   }
 
   /**
@@ -86,20 +79,20 @@ export class App extends AbstractControl {
     this.displayWarning(warnText);
   }
 
-    /**
+  /**
      * creates a warning message to show if something's wrong
      */
-    _createWarning () {
-        this.warning = this._addDiv(['warning', 'warning-hidden']);
-        this.el.insertBefore(this.warning, this.list.el);
-      }
-  
+  _createWarning () {
+    this.warning = this._addDiv(['warning', 'warning-hidden']);
+    this.el.insertBefore(this.warning, this.list.el);
+  }
+
   /**
      * displays warning if something was wrong with the query
      * @param {string} text
      */
-    displayWarning (text) {
-        this.warning.innerText = text;
-        this.warning.classList.remove('warning-hidden');
-      }
+  displayWarning (text) {
+    this.warning.innerText = text;
+    this.warning.classList.remove('warning-hidden');
+  }
 }

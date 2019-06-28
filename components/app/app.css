@@ -22,6 +22,12 @@ body {
     z-index: 1100;
     cursor: pointer;
     background-color: white;
+    width: 10%;
+    text-align: center;
+}
+
+.toggle-bookmarks:hover {
+    background-color: antiquewhite;
 }
 
 .toggle-bookmarks:active {

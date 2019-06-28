@@ -101,7 +101,6 @@ export class ApiWorker {
      */
   getListings (cityName) {
     let url = this.url + 'place_name=' + cityName;
-
     this.makeRequestScript(url, this._checkResponse, this.onError);
   }
 }

@@ -1,15 +1,20 @@
-import { AbstractControl } from "../abstract/abstract.js";
+import { AbstractControl } from '../abstract/abstract.js';
 
+/**
+ * a class for modal window
+ */
 export class Modal extends AbstractControl {
-    constructor() {
-        super();
-                
-        this.modalOverlay = this._addDiv(['modal-overlay', 'modal-closed']);
-        this.modalOverlay.dataset.action = 'hide-modal';
-        this.modalWindow = this._addDiv(['modal', 'modal-closed']);
-    }
+  /**
+   * create modal window
+   */
+  constructor () {
+    super();
 
-    
+    this.modalOverlay = this._addDiv(['modal-overlay', 'modal-closed']);
+    this.modalOverlay.dataset.action = 'hide-modal';
+    this.modalWindow = this._addDiv(['modal', 'modal-closed']);
+  }
+
   /**
      * clear html of modal, fill it with new info,
      * open modal
@@ -37,7 +42,7 @@ export class Modal extends AbstractControl {
     let titleDiv = this._addDiv(['modal-title', 'title'], item.title);
     let priceDiv = this._addDiv(['modal-price', 'price'], item.price_formatted);
     titleWrap.append(titleDiv, priceDiv, clearfix);
-    
+
     let buttonCssClass = ['add-bookmark'];
     let buttonInnerText = 'Add';
     let buttonAction = 'add-bookmark';
@@ -64,16 +69,16 @@ export class Modal extends AbstractControl {
     modalInfo.append(titleWrap, bookmarkButton, imgWrap, textWrap);
     modalGuts.append(modalInfo, linkToLister);
 
-    return modalGuts
+    return modalGuts;
   }
 
   /**
    * gets text for item details display
-   * @param {Object} item 
+   * @param {Object} item
    */
-  _getDetailedText(item) {
-    let lister_name = item.lister_name === undefined ?
-     'Unknow Lister' : item.lister_name;
+  _getDetailedText (item) {
+    let lister_name = item.lister_name === undefined
+      ? 'Unknow Lister' : item.lister_name;
     return `${lister_name} on ${item.datasource_name}
 
     Property: ${item.property_type}

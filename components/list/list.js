@@ -1,18 +1,18 @@
-import {AbstractControl} from '../abstract/abstract.js';
-import {Modal} from './modal.js';
+import { AbstractControl } from '../abstract/abstract.js';
+import { Modal } from './modal.js';
 /**
  * class representing a list of places for rent
  */
 export class List extends AbstractControl {
   /**
-     * creates and renders a list inside htmlElement
-     * @param {htmlEl} htmlEl
-     */
+   * creates and renders a list inside htmlElement
+   * @param {htmlEl} htmlEl
+   */
   constructor (htmlEl) {
     super();
     this.el = htmlEl;
     this.data = [];
-    
+
     this.modal = new Modal();
     this.actions = {
       'show-more': this._showMore.bind(this),
@@ -20,33 +20,52 @@ export class List extends AbstractControl {
       'add-bookmark': this._addToBookmarks.bind(this),
       'remove-bookmark': this._removeBookmark.bind(this)
     };
-    
+
     this._render();
     this._initEvents();
   }
 
-  _showMore() {
+  /**
+   * dummy
+   */
+  _showMore () {
   }
 
-  _removeBookmark(target) {
+  /**
+   * removes bookmark from bookmarkslist
+   * @param {htmlEl} target
+   */
+  _removeBookmark (target) {
     this._swapButton(target, 'remove-bookmark', 'add-bookmark', 'Add');
     this._changeBookmarks(target);
   }
 
-  _changeBookmarks(target) {
+  /**
+   * dispatches event for adding of removing item in bookmarks
+   * @param {htmlEl} target
+   */
+  _changeBookmarks (target) {
     this.data[target.dataset.index].bookmark = !this.data[target.dataset.index].bookmark;
-    let bookmarkChange = new CustomEvent('bookmarkChange', 
-        {bubbles: true, detail: this.data[target.dataset.index]});
-        console.log(target.dataset.index);
+    let bookmarkChange = new CustomEvent('bookmarkChange',
+      { bubbles: true, detail: this.data[target.dataset.index] });
+    console.log(target.dataset.index);
     this.el.dispatchEvent(bookmarkChange);
   }
 
-  _swapButton(target, toRemove, toAdd, text) {
+  /**
+   * changes button Add to Remove or vice versa
+   * @param {htmlEl} target
+   * @param {string} toRemove
+   * @param {string} toAdd
+   * @param {string} text
+   */
+  _swapButton (target, toRemove, toAdd, text) {
     target.classList.remove(toRemove);
     target.classList.add(toAdd);
     target.dataset.action = toAdd;
     target.innerText = text;
   }
+
   /**
      * delete all html inside el and render a list of data
      */
@@ -92,7 +111,6 @@ export class List extends AbstractControl {
     this.currentCount = i;
   }
 
-
   /**
      * adds eventListeners for opening/closing modal,
      * and for getting more listings
@@ -118,7 +136,11 @@ export class List extends AbstractControl {
     }
   }
 
-  _addToBookmarks(target) {
+  /**
+   * adds item to bookmarks
+   * @param {htmlEl} target
+   */
+  _addToBookmarks (target) {
     this._swapButton(target, 'add-bookmark', 'remove-bookmark', 'Remove');
     this._changeBookmarks(target);
   }
