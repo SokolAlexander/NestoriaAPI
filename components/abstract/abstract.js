@@ -15,7 +15,7 @@ export class AbstractControl {
           let el = document.createElement(tagName);
           el.innerText = innerText;
           if (src) el.src = src;
-    
+
           CssClasses.forEach(CssClass => {
             el.classList.add(CssClass);
           });

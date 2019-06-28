@@ -42,13 +42,15 @@ export class App extends AbstractControl {
     this.el.addEventListener('requestData', (e) => {
       this.apiWorker.getNextPage(e.detail.page);
     });
-    this.el.addEventListener('bookmarkAdd', (e) => {
-        this.bookmarks.addData(e.detail);
+    this.el.addEventListener('bookmarkChange', (e) => {
+      console.log(e.detail, this.bookmarks.data)
+        if (!e.detail.bookmark) {
+          this.bookmarks.removeItem(e.detail)
+        } else this.bookmarks.addData(e.detail);
       });
     this.el.addEventListener('click', (e) => {
         if (e.target.classList.contains('toggle-bookmarks')) {
         this.bookmarks.el.classList.toggle('display-bookmarks');
-        console.log(this.bookmarks.data)
         }
     })
   }

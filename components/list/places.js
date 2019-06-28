@@ -11,6 +11,7 @@ export class PlacesList extends List {
      */
     _appendButton () {
         let button = this._addElement('a')(['button', 'show-more']);
+        button.dataset.action = 'show-more';
         button.innerText = 'show more';
         this.el.append(button);
       }

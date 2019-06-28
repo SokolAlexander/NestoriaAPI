@@ -1,13 +1,12 @@
 import { AbstractControl } from "../abstract/abstract.js";
 
 export class Modal extends AbstractControl {
-    constructor(listEl) {
+    constructor() {
         super();
-        this.listEl = listEl;
-        
+                
         this.modalOverlay = this._addDiv(['modal-overlay', 'modal-closed']);
-        this.modal = this._addDiv(['modal', 'modal-closed']);
-        this.listEl.append(this.modalOverlay, this.modal);
+        this.modalOverlay.dataset.action = 'hide-modal';
+        this.modalWindow = this._addDiv(['modal', 'modal-closed']);
     }
 
     
@@ -16,12 +15,12 @@ export class Modal extends AbstractControl {
      * open modal
      * @param {number} index number of item to show details for
      */
-  display (item) {
-    this.modal.innerHTML = '';
-    this.modal.append(this._fill(item));
+  display (item, index) {
+    this.modalWindow.innerHTML = '';
+    this.modalWindow.append(this._fill(item, index));
 
     this.modalOverlay.classList.remove('modal-closed');
-    this.modal.classList.remove('modal-closed');
+    this.modalWindow.classList.remove('modal-closed');
   }
 
   /**
@@ -29,7 +28,7 @@ export class Modal extends AbstractControl {
      * @param {number} index
      * @return {htmlEl}
      */
-  _fill (item) {
+  _fill (item, index) {
     let modalGuts = this._addDiv(['modal-guts'], '');
     let modalInfo = this._addDiv(['modal-info'], '');
 
@@ -38,6 +37,18 @@ export class Modal extends AbstractControl {
     let titleDiv = this._addDiv(['modal-title', 'title'], item.title);
     let priceDiv = this._addDiv(['modal-price', 'price'], item.price_formatted);
     titleWrap.append(titleDiv, priceDiv, clearfix);
+    
+    let buttonCssClass = ['add-bookmark'];
+    let buttonInnerText = 'Add';
+    let buttonAction = 'add-bookmark';
+    if (item.bookmark) {
+      buttonCssClass = ['remove-bookmark'];
+      buttonInnerText = 'Remove';
+      buttonAction = 'remove-bookmark';
+    }
+    let bookmarkButton = this._addDiv(buttonCssClass, buttonInnerText);
+    bookmarkButton.dataset.action = buttonAction;
+    bookmarkButton.dataset.index = index;
 
     let imgWrap = this._addDiv(['modal-img-wrap'], '');
     let img = this._addElement('img', item.img_url)(['image']);
@@ -48,11 +59,9 @@ export class Modal extends AbstractControl {
 
     let linkToLister = this._addElement('a')(['outer-link'], 'more details');
     linkToLister.href = item.lister_url;
+    //
 
-    let bookmarkAdd = this._addDiv(['add-bookmark'], 'Add');
-    //bookmarkAdd.dataset.index = index;
-
-    modalInfo.append(titleWrap, bookmarkAdd, imgWrap, textWrap);
+    modalInfo.append(titleWrap, bookmarkButton, imgWrap, textWrap);
     modalGuts.append(modalInfo, linkToLister);
 
     return modalGuts
@@ -79,6 +88,6 @@ export class Modal extends AbstractControl {
      */
   hide () {
     this.modalOverlay.classList.add('modal-closed');
-    this.modal.classList.add('modal-closed');
+    this.modalWindow.classList.add('modal-closed');
   }
 }

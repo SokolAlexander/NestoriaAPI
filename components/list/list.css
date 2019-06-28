@@ -49,7 +49,7 @@ li:active {
     width: 10%;
     text-align: right;
 }
-
+.remove-bookmark,
 .add-bookmark {
     border: 2px solid blue;
     width: 100%;
@@ -59,7 +59,7 @@ li:active {
     text-align: center;
     cursor: pointer;
 }
-
+.remove-bookmark:hover,
 .add-bookmark:hover {
     background-color: aqua;
 }
