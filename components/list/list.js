@@ -140,7 +140,7 @@ export class List extends AbstractControl {
    * @param {htmlEl} target
    */
   _addToBookmarks (target) {
-    this._swpButton(target, 'add-bookmark', 'remove-bookmark', 'Remove');
+    this._swapButton(target, 'add-bookmark', 'remove-bookmark', 'Remove');
     this._changeBookmarks(target);
   }
 

@@ -57,7 +57,6 @@ export class ApiWorker {
      */
   _clear (callbackName) {
     setTimeout(() => { this.isOk = true; }, 1000);
-    debugger
     document.head.removeChild(document.head.querySelector('script'));
     delete this.callbackRegistry[callbackName];
     delete window[callbackName];
